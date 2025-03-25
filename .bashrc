@@ -97,6 +97,57 @@ psgrep() {
 # Enable programmable completion features
 complete -cf sudo
 
+# Slate-themed bash prompt with system information
+
+# Color definitions (slate-inspired palette)
+SLATE_GRAY='\[\033[38;5;246m\]'
+SLATE_BLUE='\[\033[38;5;67m\]'
+SLATE_DARK='\[\033[38;5;240m\]'
+SLATE_LIGHT='\[\033[38;5;252m\]'
+BATTERY_GREEN='\[\033[38;5;40m\]'
+ATTERY_YELLOW='\[\033[38;5;220m\]'
+BATTERY_RED='\[\033[38;5;196m\]'
+RESET='\[\033[0m\]'
+
+# Function to get Git branch
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+# Function to get battery percentage
+get_battery_status() {
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        # macOS
+        BATTERY_PCT=$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)
+    elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        # Linux (works on most systems)
+        BATTERY_PCT=$(cat /sys/class/power_supply/BAT*/capacity 2>/dev/null)
+    else
+        BATTERY_PCT=""
+    fi
+
+    if [[ -n "$BATTERY_PCT" ]]; then
+        # Color code battery percentage
+        if [[ $BATTERY_PCT -gt 50 ]]; then
+            BATTERY_COLOR=$BATTERY_GREEN
+        elif [[ $BATTERY_PCT -gt 20 ]]; then
+            BATTERY_COLOR=$BATTERY_YELLOW
+        else
+            BATTERY_COLOR=$BATTERY_RED
+        fi
+        echo -e "$BATTERY_COLOR[$BATTERY_PCT%]$RESET"
+    fi
+}
+
+# Prompt construction
+PS1="${SLATE_DARK}[${SLATE_BLUE}\u${SLATE_DARK}@${SLATE_BLUE}\h${SLATE_DARK}]" # User and Host
+PS1+=" ${SLATE_GRAY}\D{%Y-%m-%d %H:%M}${RESET}" # Date and Time
+PS1+=" ${SLATE_LIGHT}\w${SLATE_BLUE}\$(parse_git_branch)${RESET}" # Current Directory and Git Branch
+PS1+=" \$(get_battery_status)" # Battery Status
+PS1+="\n$ " # New line with prompt symbol
+
+export PS1
+
 # Optional: Load local customizations
 if [ -f ~/.bashrc_local ]; then
     source ~/.bashrc_local
