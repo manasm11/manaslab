@@ -4,9 +4,10 @@ main() {
         if $is_debian_based ; then
                 download_bashrc && \
                 install_programs_deb && \
+                setup_git && \
                 download_nvim_conf_deb && \
-                install_vim_plug
-                setup_git
+                install_vim_plug && \
+                echo "Run ':PlugInstall' in nvim to enable nvim plugins."
         fi
 }
 
