@@ -2,6 +2,7 @@
 
 main() {
         if $is_debian_based ; then
+                download_bashrc && \
                 install_programs_deb && \
                 download_nvim_conf_deb && \
                 install_vim_plug
@@ -10,6 +11,11 @@ main() {
 }
 
 is_debian_based=$([ -f /etc/debian_version ])
+
+download_bashrc() {
+        wget -O "$HOME/.bashrc" \
+                        "https://raw.githubusercontent.com/manasm11/manaslab/refs/heads/main/.bashrc"
+}
 
 install_programs_deb() {
         sudo apt-get update && \
