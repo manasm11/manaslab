@@ -12,7 +12,7 @@ is_debian_based=$([ -f /etc/debian_version ])
 
 install_programs_deb() {
         sudo apt-get update && \
-        sudo apt-get -y install wget neovim curl
+        sudo apt-get -y install wget neovim curl git
 }
 
 download_nvim_conf_deb() {
