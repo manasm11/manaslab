@@ -5,6 +5,7 @@ main() {
                 install_programs_deb && \
                 download_nvim_conf_deb && \
                 install_vim_plug
+                setup_git
         fi
 }
 
@@ -24,6 +25,11 @@ download_nvim_conf_deb() {
 install_vim_plug() {
         sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+}
+
+setup_git() {
+        git config --global user.email "manas.m22@gmail.com" && \
+        git config --global user.name "Manas Mishra"
 }
 
 main
