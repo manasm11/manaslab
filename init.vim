@@ -1,6 +1,7 @@
 call plug#begin()
         Plug 'vim-airline/vim-airline'
         Plug 'tpope/vim-commentary'
+        Plug 'vim-scripts/AutoComplPop'
 call plug#end()
 
 set number
@@ -12,5 +13,7 @@ set smarttab
 set softtabstop=4
 set mouse=a
 set expandtab
+set completeopt=menuone,longest
+set shortmess+=c
 
 colorscheme slate
