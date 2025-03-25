@@ -8,10 +8,10 @@ install_programs_deb() {
 
 download_nvim_conf_deb() {
         mkdir -p "$HOME/.config/nvim/"
-        wget -P "$HOME/.config/nvim/" "https://raw.githubusercontent.com/manasm11/neovim-config/refs/heads/main/init.vim"
+        wget -O "$HOME/.config/nvim/init.vim" "https://raw.githubusercontent.com/manasm11/neovim-config/refs/heads/main/init.vim"
 }
 
 if $is_debian_based ; then
-        $([ -f step1 ]) || ( install_programs_deb && touch step1 )
+        install_programs_deb
         download_nvim_conf_deb
 fi
