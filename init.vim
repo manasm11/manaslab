@@ -1,5 +1,6 @@
 call plug#begin()
         Plug 'vim-airline/vim-airline'
+        Plug 'tpope/vim-commentary'
 call plug#end()
 
 set number
@@ -10,3 +11,6 @@ set shiftwidth=4
 set smarttab
 set softtabstop=4
 set mouse=a
+set expandtab
+
+colorscheme slate
