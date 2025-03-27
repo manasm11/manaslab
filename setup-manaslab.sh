@@ -3,16 +3,23 @@
 main() {
         if $is_debian_based ; then
                 download_bashrc && \
+                download_nvim_conf_deb && \
+                download_spellcheck_dictionary && \
                 install_programs_deb && \
                 install_nvim && \
                 setup_git && \
-                download_nvim_conf_deb && \
                 install_vim_plug && \
                 echo "Run ':PlugInstall' in nvim to enable nvim plugins."
         fi
 }
 
 is_debian_based=$([ -f /etc/debian_version ])
+
+download_spellcheck_dictionary() {
+        mkdir -p "$HOME/.config/nvim/spell/" && \
+        wget -O "$HOME/.config/nvim/spell/en.utf-8.add" \
+                        "https://raw.githubusercontent.com/manasm11/manaslab/refs/heads/main/en.utf-8.add"
+}
 
 download_bashrc() {
         wget -O "$HOME/.bashrc" \
