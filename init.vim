@@ -15,6 +15,8 @@ set mouse=a
 set expandtab
 set completeopt=menuone,longest
 set shortmess+=c
+set spell
+set spelllang=en
 
 colorscheme slate
 
