@@ -19,6 +19,5 @@ set shortmess+=c
 colorscheme slate
 
 " Abbreviations format: autocmd FileType [filetyp] iabbrev <buffer> [shortcut] [expansion]
-autocmd FileType go iabbrev <buffer> pmain package main<CR>
-autocmd FileType go iabbrev <buffer> impo import (<CR>)
+autocmd FileType go iabbrev <buffer> import import (<CR>)
 autocmd FileType go iabbrev <buffer> tea tea "github.com/charmbracelet/bubbletea"
