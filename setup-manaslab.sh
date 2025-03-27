@@ -4,9 +4,9 @@ main() {
         if $is_debian_based ; then
                 download_bashrc && \
                 download_nvim_conf_deb && \
-                download_spellcheck_dictionary && \
                 install_programs_deb && \
                 install_nvim && \
+                download_spellcheck_dictionary && \
                 setup_git && \
                 install_vim_plug && \
                 echo "Run ':PlugInstall' in nvim to enable nvim plugins."
