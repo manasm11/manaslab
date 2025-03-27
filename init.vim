@@ -1,7 +1,7 @@
 call plug#begin()
-        Plug 'vim-airline/vim-airline'
-        Plug 'tpope/vim-commentary'
-        Plug 'vim-scripts/AutoComplPop'
+    Plug 'vim-airline/vim-airline'
+    Plug 'tpope/vim-commentary'
+    Plug 'vim-scripts/AutoComplPop'
 call plug#end()
 
 set number
@@ -17,3 +17,6 @@ set completeopt=menuone,longest
 set shortmess+=c
 
 colorscheme slate
+
+" Abbreviations format: autocmd FileType [filetyp] iabbrev <buffer> [shortcut] [expansion]
+autocmd FileType go iabbrev <buffer> pmain package main<CR>
