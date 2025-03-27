@@ -21,3 +21,4 @@ colorscheme slate
 " Abbreviations format: autocmd FileType [filetyp] iabbrev <buffer> [shortcut] [expansion]
 autocmd FileType go iabbrev <buffer> import import (<CR>)
 autocmd FileType go iabbrev <buffer> tea tea "github.com/charmbracelet/bubbletea"
+autocmd FileType go iabbrev <buffer> struct type struct {}<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
