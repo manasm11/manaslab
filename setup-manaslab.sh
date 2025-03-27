@@ -3,12 +3,13 @@
 main() {
         if $is_debian_based ; then
                 download_bashrc && \
+                download_spellcheck_dictionary && \
                 download_nvim_conf_deb && \
                 install_programs_deb && \
                 install_nvim && \
-                download_spellcheck_dictionary && \
-                setup_git && \
                 install_vim_plug && \
+                setup_spellcheck && \
+                setup_git && \
                 echo "Run ':PlugInstall' in nvim to enable nvim plugins."
         fi
 }
@@ -18,8 +19,7 @@ is_debian_based=$([ -f /etc/debian_version ])
 download_spellcheck_dictionary() {
         mkdir -p "$HOME/.config/nvim/spell/" && \
         wget -O "$HOME/.config/nvim/spell/en.utf-8.add" \
-                        "https://raw.githubusercontent.com/manasm11/manaslab/refs/heads/main/en.utf-8.add" && \
-        nvim -u NONE -es -c "mkspell! $HOME/.config/nvim/spell/en.utf-8.add"
+                        "https://raw.githubusercontent.com/manasm11/manaslab/refs/heads/main/en.utf-8.add"
 }
 
 download_bashrc() {
@@ -53,6 +53,10 @@ install_vim_plug() {
 setup_git() {
         git config --global user.email "manas.m22@gmail.com" && \
         git config --global user.name "Manas Mishra"
+}
+
+setup_spellcheck() {
+        nvim -u NONE -es -c "mkspell! $HOME/.config/nvim/spell/en.utf-8.add"
 }
 
 main
