@@ -154,3 +154,10 @@ export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 if [ -f ~/.bashrc_local ]; then
     source ~/.bashrc_local
 fi
+
+manaslab-update() {
+    cp /home/manas/.bashrc /home/manas/manaslab/.bashrc
+    cp /home/manas/.config/nvim/init.vim /home/manas/manaslab/init.vim
+    cp /home/manas/.config/nvim/spell/en.utf-8.add /home/manas/manaslab/en.utf-8.add
+    cd /home/manas/manaslab && git commit -am "updated manaslab" && git push
+}
