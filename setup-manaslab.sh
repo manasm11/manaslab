@@ -4,6 +4,7 @@ main() {
         if $is_debian_based ; then
                 download_bashrc && \
                 install_programs_deb && \
+                install_nvim && \
                 setup_git && \
                 download_nvim_conf_deb && \
                 install_vim_plug && \
@@ -18,9 +19,15 @@ download_bashrc() {
                         "https://raw.githubusercontent.com/manasm11/manaslab/refs/heads/main/.bashrc"
 }
 
+install_nvim() {
+        curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz && \
+        sudo rm -rf /opt/nvim && \
+        sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+}
+
 install_programs_deb() {
-        sudo apt-get update && \
-        sudo apt-get -y install wget neovim curl git
+        sudo apt-get update && sudo apt-get upgrade -y && \
+        sudo apt-get -y install wget curl git
 }
 
 download_nvim_conf_deb() {
