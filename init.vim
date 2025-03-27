@@ -16,10 +16,11 @@ set expandtab
 set completeopt=menuone,longest
 set shortmess+=c
 set spell
+set spelloptions=camel
 
 colorscheme slate
 
-" Abbreviations format: autocmd FileType [filetyp] iabbrev <buffer> [shortcut] [expansion]
+" Abbreviations format: autocmd FileType [file type] iabbrev <buffer> [shortcut] [expansion]
 autocmd FileType go iabbrev <buffer> import import (<CR>)
 autocmd FileType go iabbrev <buffer> tea tea "github.com/charmbracelet/bubbletea"
 autocmd FileType go iabbrev <buffer> struct type struct {}<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
