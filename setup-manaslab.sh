@@ -16,13 +16,14 @@ main() {
 is_debian_based=$([ -f /etc/debian_version ])
 
 download_spellcheck_dictionary() {
-        mkdir -p "$HOME/.config/nvim/spell/" && \
-        wget -O "$HOME/.config/nvim/spell/en.utf-8.add" \
-                        "https://raw.githubusercontent.com/manasm11/manaslab/refs/heads/main/en.utf-8.add"
+        mkdir -p "~/.config/nvim/spell/" && \
+        wget -O "~/.config/nvim/spell/en.utf-8.add" \
+                        "https://raw.githubusercontent.com/manasm11/manaslab/refs/heads/main/en.utf-8.add" && \
+        nvim -u NONE -es -c "mkspell! ~/.config/nvim/spell/en.utf-8.add"
 }
 
 download_bashrc() {
-        wget -O "$HOME/.bashrc" \
+        wget -O "~/.bashrc" \
                         "https://raw.githubusercontent.com/manasm11/manaslab/refs/heads/main/.bashrc"
 }
 
@@ -39,8 +40,8 @@ install_programs_deb() {
 }
 
 download_nvim_conf_deb() {
-        mkdir -p "$HOME/.config/nvim/" && \
-        wget -O "$HOME/.config/nvim/init.vim" \
+        mkdir -p "~/.config/nvim/" && \
+        wget -O "~/.config/nvim/init.vim" \
                         "https://raw.githubusercontent.com/manasm11/neovim-config/refs/heads/main/init.vim"
 }
 
