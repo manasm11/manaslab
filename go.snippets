@@ -9,3 +9,13 @@ snippet packmain
 		fmt.Println("${3}started...")
 		$4
 	}
+
+snippet func
+	func ${1:main}($2) $3 {
+		$5
+		return ${4:nil}
+	}
+
+snippet map
+	map[$1]$2
+

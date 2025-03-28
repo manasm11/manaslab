@@ -9,6 +9,7 @@ call plug#begin()
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/cmp-cmdline'
     Plug 'hrsh7th/nvim-cmp'
+    Plug 'itmammoth/doorboy.vim'
 call plug#end()
 
 set number
