@@ -159,6 +159,6 @@ manaslab-update() {
     cp /home/manas/.bashrc /home/manas/manaslab/.bashrc
     cp /home/manas/.config/nvim/init.vim /home/manas/manaslab/init.vim
     cp /home/manas/.config/nvim/spell/en.utf-8.add /home/manas/manaslab/en.utf-8.add
-    git diff
-    cd /home/manas/manaslab && git commit -am "updated manaslab" && git push
+    cp -r /home/manas/.config/nvim/snippets /home/manas/manaslab/
+    cd /home/manas/manaslab && git add . && git commit && git push && cd -
 }
