@@ -1,5 +1,7 @@
 #!/bin/bash
 
+GO_VERSION="1.24.1"
+
 main() {
         if $is_debian_based ; then
                 download_bashrc && \
@@ -9,6 +11,7 @@ main() {
                 install_programs_deb && \
                 install_nvim && \
                 install_vim_plug && \
+                install_go && \
                 setup_spellcheck && \
                 setup_git && \
                 echo "Run ':PlugInstall' in nvim to enable nvim plugins."
@@ -46,12 +49,23 @@ install_programs_deb() {
 }
 
 install_nvim() {
+        sudo apt purge neovim
+        sudo snap remove nvim
         sudo rm /usr/bin/nvim
+        sudo rm -rf /opt/nvim
         curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz && \
-        sudo rm -rf /opt/nvim && \
         sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz && \
         export PATH="$PATH:/opt/nvim-linux-x86_64/bin" && \
         rm nvim-linux-x86_64.tar.gz
+}
+
+install_go() {
+        sudo apt purge golang
+        sudo rm -rf /opt/go
+        curl -LO https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz && \
+        sudo tar -C /opt -xzf go${GO_VERSION}.linux-amd64.tar.gz && \
+        export PATH="/opt/go/bin:$PATH" && \
+        rm go${GO_VERSION}.linux-amd64.tar.gz
 }
 
 install_vim_plug() {
