@@ -1,5 +1,5 @@
 call plug#begin()
-    Plug 'vim-airline/vim-airline' "information display at the bottom
+    Plug 'vim-airline/vim-airline' "information display at bottom
     Plug 'tpope/vim-commentary' "comment code with gcc and gc
     Plug 'dcampos/nvim-snippy' "for adding snippets
     Plug 'dcampos/cmp-snippy' "for adding snippets in autocompletion
@@ -33,6 +33,10 @@ imap <expr> <S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<S-Tab>'
 smap <expr> <Tab> snippy#can_jump(1) ? '<Plug>(snippy-next)' : '<Tab>'
 smap <expr> <S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<S-Tab>'
 xmap <Tab> <Plug>(snippy-cut-text)
+
+"perform format on save
+autocmd BufWritePre *.go execute ':%!gofmt'
+autocmd BufWritePre *.py execute ':%!black -q -'
 
 lua << EOF
 require("lspconfig").gopls.setup({})
