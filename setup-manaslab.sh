@@ -63,8 +63,7 @@ install_go() {
         sudo apt purge golang
         sudo rm -rf /opt/go
         curl -LO https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz && \
-        sudo tar -C /opt -xzf go${GO_VERSION}.linux-amd64.tar.gz && \
-        export PATH="/opt/go/bin:$PATH" && \
+        sudo tar -C $HOME -xzf go${GO_VERSION}.linux-amd64.tar.gz && \
         rm go${GO_VERSION}.linux-amd64.tar.gz && \
         go install golang.org/x/tools/gopls@latest
 }
