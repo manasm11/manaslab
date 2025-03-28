@@ -65,6 +65,7 @@ setup_spellcheck() {
 setup_git() {
         git config --global user.email "manas.m22@gmail.com" && \
         git config --global user.name "Manas Mishra"
+        git config --global pull.rebase true
 }
 
 main
