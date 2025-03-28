@@ -148,7 +148,7 @@ PS1+="\n$ " # New line with prompt symbol
 
 export PS1
 
-export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+export PATH="/opt/nvim-linux-x86_64/bin:/opt/go/bin:$PATH"
 
 # Optional: Load local customizations
 if [ -f ~/.bashrc_local ]; then
