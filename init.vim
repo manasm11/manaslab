@@ -35,6 +35,25 @@ smap <expr> <S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<S-Tab>'
 xmap <Tab> <Plug>(snippy-cut-text)
 
 lua << EOF
+require("lspconfig").gopls.setup({})
+vim.diagnostic.config({
+    virtual_text = true, -- Show error messages inline
+    signs = true,        -- Show signs in the gutter
+    underline = true,    -- Underline errors
+    update_in_insert = false,
+    severity_sort = true,
+})
+vim.o.updatetime = 250  -- Reduce update time for better responsiveness
+
+vim.api.nvim_create_autocmd("CursorHold", {
+    pattern = "*",
+    callback = function()
+        vim.diagnostic.open_float(nil, { focusable = false, scope = "cursor" })
+    end,
+})
+
+
+
 local cmp = require('cmp')
 
 cmp.setup({
