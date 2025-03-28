@@ -62,7 +62,7 @@ install_nvim() {
 install_go() {
         sudo apt purge golang
         curl -LO https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz && \
-        rm -rf /usr/local/go && sudo tar -C $HOME -xzf go${GO_VERSION}.linux-amd64.tar.gz && \
+        rm -rf /usr/local/go && tar -C $HOME -xzf go${GO_VERSION}.linux-amd64.tar.gz && \
         mv $HOME/go $HOME/.go && \
         export PATH="$HOME/.go/bin:$PATH" && \
         export GOPATH="$HOME/.go" && \
