@@ -70,3 +70,4 @@ setup_git() {
 }
 
 main
+bash
