@@ -151,6 +151,11 @@ export PATH="/opt/nvim-linux-x86_64/bin:$PATH"
 export PATH="$HOME/.go/bin:$PATH"
 export GOPATH="$HOME/.go"
 
+function go() {
+    command go "$@" 2> >(grep -v "both GOPATH and GOROOT are the same directory" >&2)
+}
+
+
 # Optional: Load local customizations
 if [ -f ~/.bashrc_local ]; then
     source ~/.bashrc_local
