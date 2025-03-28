@@ -5,6 +5,7 @@ main() {
                 download_bashrc && \
                 download_spellcheck_dictionary && \
                 download_nvim_conf_deb && \
+                download_snippets && \
                 install_programs_deb && \
                 install_nvim && \
                 install_vim_plug && \
@@ -31,6 +32,12 @@ download_nvim_conf_deb() {
         mkdir -p "$HOME/.config/nvim/" && \
         wget -O "$HOME/.config/nvim/init.vim" \
                         "https://raw.githubusercontent.com/manasm11/neovim-config/refs/heads/main/init.vim"
+}
+
+download_snippets() {
+        mkdir -p "$HOME/.config/nvim/snippets/" && \
+        wget -O "$HOME/.config/nvim/snippets/go.snippets" \
+                "https://raw.githubusercontent.com/manasm11/manaslab/refs/heads/main/go.snippets"
 }
 
 install_programs_deb() {
