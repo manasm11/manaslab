@@ -147,9 +147,9 @@ PS1+=" \$(get_battery_status)" # Battery Status
 PS1+="\n$ " # New line with prompt symbol
 
 export PS1
-
 export PATH="/opt/nvim-linux-x86_64/bin:$PATH"
-export PATH="/usr/local/go/bin:$PATH"
+export PATH="$HOME/.go/bin:$PATH"
+export GOPATH="$HOME/.go"
 
 # Optional: Load local customizations
 if [ -f ~/.bashrc_local ]; then
