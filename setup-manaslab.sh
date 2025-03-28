@@ -64,7 +64,8 @@ install_go() {
         curl -LO https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz && \
         rm -rf /usr/local/go && tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz && \
         export PATH="$PATH:/usr/local/go/bin" && \
-        rm go${GO_VERSION}.linux-amd64.tar.gz
+        rm go${GO_VERSION}.linux-amd64.tar.gz && \
+        go install golang.org/x/tools/gopls@latest
 }
 
 install_vim_plug() {
