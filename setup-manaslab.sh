@@ -61,11 +61,10 @@ install_nvim() {
 
 install_go() {
         sudo apt purge golang
-        sudo rm -rf /opt/go
         curl -LO https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz && \
-        sudo tar -C $HOME -xzf go${GO_VERSION}.linux-amd64.tar.gz && \
-        rm go${GO_VERSION}.linux-amd64.tar.gz && \
-        go install golang.org/x/tools/gopls@latest
+        rm -rf /usr/local/go && tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz && \
+        export PATH="$PATH:/usr/local/go/bin" && \
+        rm go${GO_VERSION}.linux-amd64.tar.gz
 }
 
 install_vim_plug() {
