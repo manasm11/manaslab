@@ -1,15 +1,15 @@
 call plug#begin()
-    Plug 'vim-airline/vim-airline'
-    Plug 'tpope/vim-commentary'
-    Plug 'dcampos/nvim-snippy'
-    Plug 'dcampos/cmp-snippy'
-    Plug 'neovim/nvim-lspconfig'
-    Plug 'hrsh7th/cmp-nvim-lsp'
-    Plug 'hrsh7th/cmp-buffer'
-    Plug 'hrsh7th/cmp-path'
-    Plug 'hrsh7th/cmp-cmdline'
-    Plug 'hrsh7th/nvim-cmp'
-    Plug 'itmammoth/doorboy.vim'
+    Plug 'vim-airline/vim-airline' "information display at the bottom
+    Plug 'tpope/vim-commentary' "comment code with gcc and gc
+    Plug 'dcampos/nvim-snippy' "for adding snippets
+    Plug 'dcampos/cmp-snippy' "for adding snippets in autocompletion
+    Plug 'neovim/nvim-lspconfig' "to integrate with nvim-lsp
+    Plug 'hrsh7th/cmp-nvim-lsp' "to add autocompletion from lsp
+    Plug 'hrsh7th/cmp-buffer' "to add autocompletion from words in buffer
+    Plug 'hrsh7th/cmp-path' "to add autocompletion from paths
+    Plug 'hrsh7th/cmp-cmdline' "to add autocompletion for terminal commands
+    Plug 'hrsh7th/nvim-cmp' "for general autocompletion
+    Plug 'itmammoth/doorboy.vim' "for auto-close brackets and quotes
 call plug#end()
 
 set number
