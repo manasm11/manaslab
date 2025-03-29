@@ -20,6 +20,8 @@ debian
 dirs
 egrep
 fgrep
+gc
+gcc
 githubusercontent
 iabbrev
 ifconfig
@@ -27,6 +29,7 @@ init
 junegunn
 linux
 lsp
+lspconfig
 macOS
 manas
 manaslab
