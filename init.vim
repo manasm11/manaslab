@@ -10,6 +10,7 @@ call plug#begin()
     Plug 'hrsh7th/cmp-cmdline' "to add autocompletion for terminal commands
     Plug 'hrsh7th/nvim-cmp' "for general autocompletion
     Plug 'itmammoth/doorboy.vim' "for auto-close brackets and quotes
+    Plug 'Exafunction/codeium.vim', { 'branch': 'main' } "ai code suggestion
 call plug#end()
 
 set number
@@ -56,8 +57,6 @@ vim.api.nvim_create_autocmd("CursorHold", {
     end,
 })
 
-
-
 local cmp = require('cmp')
 
 cmp.setup({
@@ -70,7 +69,7 @@ cmp.setup({
     { name = 'snippy' },
     { name = 'nvim_lsp' },
     { name = 'buffer' },
-    { name = 'path' }
+    { name = 'path' },
   }),
   mapping = cmp.mapping.preset.insert({
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
