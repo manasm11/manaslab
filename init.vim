@@ -11,6 +11,7 @@ call plug#begin()
     Plug 'hrsh7th/nvim-cmp' "for general autocompletion
     Plug 'itmammoth/doorboy.vim' "for auto-close brackets and quotes
     Plug 'Exafunction/codeium.vim', { 'branch': 'main' } "ai code suggestion
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 call plug#end()
 
 set number
@@ -43,6 +44,8 @@ nnoremap <silent> <Esc> :noh<CR>
 autocmd BufWritePre * lua PreserveCursorPositionAndFormat()
 
 lua << EOF
+require'nvim-treesitter.configs'.setup{highlight={enable=true}, auto_install=true}
+
 function PreserveCursorPositionAndFormat()
   local formatters = {
     go = "gofmt",
