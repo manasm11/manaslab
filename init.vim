@@ -11,7 +11,9 @@ call plug#begin()
     Plug 'hrsh7th/nvim-cmp' "for general autocompletion
     Plug 'itmammoth/doorboy.vim' "for auto-close brackets and quotes
     Plug 'Exafunction/codeium.vim', { 'branch': 'main' } "ai code suggestion
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 call plug#end()
 
 set number
@@ -31,11 +33,28 @@ set scrolloff=999
 
 colorscheme slate
 
+let mapleader = " "
+nnoremap <Leader>w :w<CR>    " Save file with <Leader>w
+nnoremap <Leader>q :q<CR>    " Quit Vim with <Leader>q
+nnoremap <Leader>x :x<CR>    " Save and Quit Vim with <Leader>q
+nnoremap <Leader>d :bd<CR>    " Delete current buffer
+nnoremap <Leader>n :bn<CR>    " Next buffer
+nnoremap <Leader>p :bp<CR>    " Previous buffer
+nnoremap <leader>ca :lua vim.lsp.buf.code_action()<CR>
+vnoremap <leader>ca :lua vim.lsp.buf.range_code_action()<CR>
+
 imap <expr> <Tab> snippy#can_expand_or_advance() ? '<Plug>(snippy-expand-or-advance)' : '<Tab>'
 imap <expr> <S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<S-Tab>'
 smap <expr> <Tab> snippy#can_jump(1) ? '<Plug>(snippy-next)' : '<Tab>'
 smap <expr> <S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<S-Tab>'
 xmap <Tab> <Plug>(snippy-cut-text)
+
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh :Telescope find_files search_dirs={'~'}<CR>
+nnoremap <leader>fc :Telescope find_files search_dirs={'~/.config/nvim/'}<CR>
+nnoremap <leader>fd :Telescope find_files search_dirs={'../'}<CR>
 
 "remove search highlight
 nnoremap <silent> <Esc> :noh<CR>
@@ -43,8 +62,10 @@ nnoremap <silent> <Esc> :noh<CR>
 "perform format on save
 autocmd BufWritePre * lua PreserveCursorPositionAndFormat()
 
+
 lua << EOF
 require'nvim-treesitter.configs'.setup{highlight={enable=true}, auto_install=true}
+vim.lsp.inlay_hint.enable(true)
 
 function PreserveCursorPositionAndFormat()
   local formatters = {
