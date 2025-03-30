@@ -4,6 +4,7 @@ GOROOT
 Manas
 Mishra
 XDG
+ai
 alF
 autoclean
 autocmd
@@ -23,6 +24,7 @@ fgrep
 gc
 gcc
 githubusercontent
+gofmt
 iabbrev
 ifconfig
 init
