@@ -19,6 +19,7 @@ shopt -s checkwinsize  # Update window size after each command
 shopt -s autocd        # Type directory name to cd into it
 shopt -s cdspell       # Autocorrect minor typos in cd command
 set -o vi              # Use terminal in vi mode
+bind 'set show-mode-in-prompt on' # indicate terminal in cmd mode or insert mode
 
 # Enable color support
 if [ -x /usr/bin/dircolors ]; then
