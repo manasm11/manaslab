@@ -36,10 +36,43 @@ smap <expr> <S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<S-Tab>'
 xmap <Tab> <Plug>(snippy-cut-text)
 
 "perform format on save
-autocmd BufWritePre *.go execute ':%!gofmt'
-autocmd BufWritePre *.py execute ':%!black -q -'
+autocmd BufWritePre *.go lua PreserveCursorPositionAndFormat()
 
 lua << EOF
+function PreserveCursorPositionAndFormat()
+  local formatters = {
+    go = "gofmt",
+    py = "black -q -",  -- Black autoformatter for Python
+    js = "prettier --stdin-filepath %",
+    ts = "prettier --stdin-filepath %",
+    json = "prettier --stdin-filepath %"
+  }
+
+  local ext = vim.fn.expand("%:e")  -- Get file extension
+  local formatter = formatters[ext]
+
+  if formatter then
+    local save_cursor = vim.fn.getpos(".")  -- Save cursor position
+
+    -- Read the buffer content
+    local content = table.concat(vim.api.nvim_buf_get_lines(0, 0, -1, false), "\n")
+
+    -- Run the formatter
+    local result = vim.fn.system(formatter, content)
+
+    -- If formatting was successful, update the buffer
+    if vim.v.shell_error == 0 then
+      vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(result, "\n"))
+    else
+      print("Formatting error: " .. result)
+    end
+
+    vim.fn.setpos(".", save_cursor)  -- Restore cursor position
+  end
+end
+
+
+
 require("lspconfig").gopls.setup({})
 vim.diagnostic.config({
     virtual_text = true, -- Show error messages inline
