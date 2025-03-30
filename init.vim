@@ -26,6 +26,7 @@ set completeopt=menuone,longest
 set shortmess+=c
 set spell
 set spelloptions=camel
+set scrolloff=999
 
 colorscheme slate
 
