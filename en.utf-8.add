@@ -26,7 +26,9 @@ debian
 dirs
 egrep
 erl
+fc
 fgrep
+fh
 filepath
 fmt
 fprettify
@@ -56,6 +58,7 @@ mv
 neovim
 netstat
 nimpretty
+nutella
 nvim
 ocamlformat
 perltidy
@@ -71,6 +74,8 @@ stdin
 stylua
 sudo
 swiftformat
+textarea
+textinput
 tuln
 utf
 vbformat
