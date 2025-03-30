@@ -35,17 +35,57 @@ smap <expr> <Tab> snippy#can_jump(1) ? '<Plug>(snippy-next)' : '<Tab>'
 smap <expr> <S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<S-Tab>'
 xmap <Tab> <Plug>(snippy-cut-text)
 
+"remove search highlight
+nnoremap <silent> <Esc> :noh<CR>
+
 "perform format on save
-autocmd BufWritePre *.go lua PreserveCursorPositionAndFormat()
+autocmd BufWritePre * lua PreserveCursorPositionAndFormat()
 
 lua << EOF
 function PreserveCursorPositionAndFormat()
   local formatters = {
     go = "gofmt",
-    py = "black -q -",  -- Black autoformatter for Python
+    py = "black -q -",
     js = "prettier --stdin-filepath %",
     ts = "prettier --stdin-filepath %",
-    json = "prettier --stdin-filepath %"
+    json = "prettier --stdin-filepath %",
+    c = "clang-format",
+    cpp = "clang-format",
+    java = "clang-format",
+    cs = "clang-format",
+    php = "php-cs-fixer fix --quiet",
+    r = "styler",  -- Needs 'install.packages(\"styler\")' in R
+    sql = "sqlformat -r -",
+    swift = "swiftformat --stdin",
+    pl = "perltidy",
+    asm = "asmfmt",
+    vb = "vbformat",
+    rb = "rubocop --auto-correct --stdin %",
+    m = "mlint",  -- MATLAB
+    rust = "rustfmt",
+    html = "prettier --stdin-filepath %",
+    css = "prettier --stdin-filepath %",
+    cobol = "cobc -x",
+    jl = "julia -e \"using JuliaFormatter; format(\"\"%)\"\"\"",
+    kt = "ktlint",
+    scala = "scalafmt",
+    pro = "gprolog",
+    lisp = "clisp",
+    lua = "stylua -",
+    f90 = "fprettify",
+    hs = "ormolu",
+    awk = "awk",
+    sol = "forge fmt",
+    ps1 = "pwsh -Command 'Format-Table'",
+    sh = "shfmt",
+    clj = "cljstyle pipe",
+    curl = "curlfmt",
+    erl = "erl_tidy",
+    groovy = "groovyfmt",
+    icn = "iconfmt",
+    ml = "ocamlformat",
+    nim = "nimpretty",
+    wls = "wlformatter"
   }
 
   local ext = vim.fn.expand("%:e")  -- Get file extension
