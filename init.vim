@@ -1,4 +1,4 @@
-call plug#begin()
+call plug#bgin()
     Plug 'vim-airline/vim-airline' "information display at bottom
     Plug 'tpope/vim-commentary' "comment code with gcc and gc
     Plug 'dcampos/nvim-snippy' "for adding snippets
@@ -43,7 +43,8 @@ nnoremap <Leader>p :bp<CR>    " Previous buffer
 nnoremap <leader>ca :lua vim.lsp.buf.code_action()<CR>
 vnoremap <leader>ca :lua vim.lsp.buf.range_code_action()<CR>
 
-imap <expr> <Tab> snippy#can_expand_or_advance() ? '<Plug>(snippy-expand-or-advance)' : '<Tab>'
+imap <expr> <Tab> snippy#can_expand_or_advance() ?
+            \ '<Plug>(snippy-expand-or-advance)' : '<Tab>'
 imap <expr> <S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<S-Tab>'
 smap <expr> <Tab> snippy#can_jump(1) ? '<Plug>(snippy-next)' : '<Tab>'
 smap <expr> <S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<S-Tab>'
@@ -53,7 +54,7 @@ xmap <Tab> <Plug>(snippy-cut-text)
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh :Telescope find_files search_dirs={'~'}<CR>
-nnoremap <leader>fc :Telescope find_files search_dirs={'~/.config/nvim/'}<CR>
+nnoremap <leader>fc :Telescope find_files search_dirs={'~/'} hidden=true<CR>
 nnoremap <leader>fd :Telescope find_files search_dirs={'../'}<CR>
 
 "remove search highlight
@@ -62,9 +63,14 @@ nnoremap <silent> <Esc> :noh<CR>
 "perform format on save
 autocmd BufWritePre * lua PreserveCursorPositionAndFormat()
 
+highlight OverLength ctermfg=Red guifg=Red
+autocmd BufWinEnter,TextChanged,TextChangedI *
+            \ call matchadd('OverLength', '\%81v.*')
+
 
 lua << EOF
-require'nvim-treesitter.configs'.setup{highlight={enable=true}, auto_install=true}
+require'nvim-treesitter.configs'.setup{
+    highlight={enable=true}, auto_install=true}
 vim.lsp.inlay_hint.enable(true)
 
 function PreserveCursorPositionAndFormat()
@@ -115,23 +121,19 @@ function PreserveCursorPositionAndFormat()
 
   local ext = vim.fn.expand("%:e")  -- Get file extension
   local formatter = formatters[ext]
-
   if formatter then
     local save_cursor = vim.fn.getpos(".")  -- Save cursor position
-
     -- Read the buffer content
-    local content = table.concat(vim.api.nvim_buf_get_lines(0, 0, -1, false), "\n")
-
+    local content = table.concat(
+        vim.api.nvim_buf_get_lines(0, 0, -1, false), "\n")
     -- Run the formatter
     local result = vim.fn.system(formatter, content)
-
     -- If formatting was successful, update the buffer
     if vim.v.shell_error == 0 then
       vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(result, "\n"))
     else
       print("Formatting error: " .. result)
     end
-
     vim.fn.setpos(".", save_cursor)  -- Restore cursor position
   end
 end
