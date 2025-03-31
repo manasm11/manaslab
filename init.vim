@@ -67,7 +67,6 @@ highlight OverLength ctermfg=Red guifg=Red
 autocmd BufWinEnter,TextChanged,TextChangedI *
             \ call matchadd('OverLength', '\%81v.*')
 
-
 lua << EOF
 require'nvim-treesitter.configs'.setup{
     highlight={enable=true}, auto_install=true}
@@ -137,8 +136,6 @@ function PreserveCursorPositionAndFormat()
     vim.fn.setpos(".", save_cursor)  -- Restore cursor position
   end
 end
-
-
 
 require("lspconfig").gopls.setup({})
 vim.diagnostic.config({
