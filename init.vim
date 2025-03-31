@@ -1,4 +1,4 @@
-call plug#bgin()
+call plug#begin()
     Plug 'vim-airline/vim-airline' "information display at bottom
     Plug 'tpope/vim-commentary' "comment code with gcc and gc
     Plug 'dcampos/nvim-snippy' "for adding snippets
