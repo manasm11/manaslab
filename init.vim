@@ -1,47 +1,56 @@
 call plug#begin()
-    Plug 'vim-airline/vim-airline' "information display at bottom
-    Plug 'tpope/vim-commentary' "comment code with gcc and gc
+    Plug 'Exafunction/codeium.vim', { 'branch': 'main' } "ai code suggestion
     Plug 'dcampos/nvim-snippy' "for adding snippets
     Plug 'dcampos/cmp-snippy' "for adding snippets in autocompletion
-    Plug 'neovim/nvim-lspconfig' "to integrate with nvim-lsp
-    Plug 'hrsh7th/cmp-nvim-lsp' "to add autocompletion from lsp
     Plug 'hrsh7th/cmp-buffer' "to add autocompletion from words in buffer
-    Plug 'hrsh7th/cmp-path' "to add autocompletion from paths
     Plug 'hrsh7th/cmp-cmdline' "to add autocompletion for terminal commands
+    Plug 'hrsh7th/cmp-nvim-lsp' "to add autocompletion from lsp
+    Plug 'hrsh7th/cmp-path' "to add autocompletion from paths
     Plug 'hrsh7th/nvim-cmp' "for general autocompletion
     Plug 'itmammoth/doorboy.vim' "for auto-close brackets and quotes
-    Plug 'Exafunction/codeium.vim', { 'branch': 'main' } "ai code suggestion
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'neovim/nvim-lspconfig' "to integrate with nvim-lsp
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'tpope/vim-commentary' "comment code with gcc and gc
+    Plug 'vim-airline/vim-airline' "information display at bottom
 call plug#end()
 
+set autoindent
+set completeopt=menuone,longest
+set cursorline
+set expandtab
+set mouse=a
 set number
 set relativenumber
-set autoindent
-set tabstop=4
+set scrolloff=999
 set shiftwidth=4
+set shortmess+=c
 set smarttab
 set softtabstop=4
-set mouse=a
-set expandtab
-set completeopt=menuone,longest
-set shortmess+=c
 set spell
 set spelloptions=camel
-set scrolloff=999
+set tabstop=4
+highlight CursorLine ctermbg=darkgray guibg=#2E3440
 
 colorscheme slate
 
 let mapleader = " "
-nnoremap <Leader>w :w<CR>    " Save file with <Leader>w
-nnoremap <Leader>q :q<CR>    " Quit Vim with <Leader>q
-nnoremap <Leader>x :x<CR>    " Save and Quit Vim with <Leader>q
-nnoremap <Leader>d :bd<CR>    " Delete current buffer
-nnoremap <Leader>n :bn<CR>    " Next buffer
-nnoremap <Leader>p :bp<CR>    " Previous buffer
 nnoremap <leader>ca :lua vim.lsp.buf.code_action()<CR>
 vnoremap <leader>ca :lua vim.lsp.buf.range_code_action()<CR>
+nnoremap <leader>d :bd<CR>      " Delete current buffer
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fc :Telescope find_files search_dirs={'~/'} hidden=true<CR>
+nnoremap <leader>fd :Telescope find_files search_dirs={'../'}<CR>
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fh :Telescope find_files search_dirs={'~'}<CR>
+nnoremap <leader>n :bn<CR>      " Next buffer
+nnoremap <leader>p :bp<CR>      " Previous buffer
+nnoremap <leader>q :q<CR>       " Quit Vim with <leader>q
+nnoremap <leader>rn :lua vim.lsp.buf.rename()<CR>
+nnoremap <leader>t :terminal
+nnoremap <leader>w :w<CR>       " Save file with <leader>w
+nnoremap <leader>x :x<CR>       " Save and Quit Vim with <leader>q
 
 imap <expr> <Tab> snippy#can_expand_or_advance() ?
             \ '<Plug>(snippy-expand-or-advance)' : '<Tab>'
@@ -49,13 +58,6 @@ imap <expr> <S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<S-Tab>'
 smap <expr> <Tab> snippy#can_jump(1) ? '<Plug>(snippy-next)' : '<Tab>'
 smap <expr> <S-Tab> snippy#can_jump(-1) ? '<Plug>(snippy-previous)' : '<S-Tab>'
 xmap <Tab> <Plug>(snippy-cut-text)
-
-" Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh :Telescope find_files search_dirs={'~'}<CR>
-nnoremap <leader>fc :Telescope find_files search_dirs={'~/'} hidden=true<CR>
-nnoremap <leader>fd :Telescope find_files search_dirs={'../'}<CR>
 
 "remove search highlight
 nnoremap <silent> <Esc> :noh<CR>
