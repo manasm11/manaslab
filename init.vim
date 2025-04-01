@@ -48,7 +48,7 @@ nnoremap <leader>n :bn<CR>      " Next buffer
 nnoremap <leader>p :bp<CR>      " Previous buffer
 nnoremap <leader>q :q<CR>       " Quit Vim with <leader>q
 nnoremap <leader>rn :lua vim.lsp.buf.rename()<CR>
-nnoremap <leader>t :terminal
+nnoremap <leader>t :terminal<CR>
 nnoremap <leader>w :w<CR>:LspRestart<CR>
 nnoremap <leader>x :x<CR>       " Save and Quit Vim with <leader>q
 
