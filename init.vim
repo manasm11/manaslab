@@ -20,6 +20,7 @@ set autoindent
 set completeopt=menuone,longest
 set cursorline
 set expandtab
+set foldmethod=indent
 set mouse=a
 set number
 set relativenumber
