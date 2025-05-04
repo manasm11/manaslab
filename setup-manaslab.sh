@@ -1,21 +1,40 @@
 #!/bin/bash
 
 GO_VERSION="1.24.1"
-
+SYSTEM=deb
 main() {
-        if $is_debian_based ; then
-                download_bashrc && \
-                download_spellcheck_dictionary && \
-                download_nvim_conf_deb && \
-                download_snippets && \
-                install_programs_deb && \
-                install_nvim && \
-                install_vim_plug && \
-                install_go && \
-                setup_spellcheck && \
-                setup_git && \
-                echo "Run ':PlugInstall' in nvim to enable nvim plugins."
-        fi
+        get_system_type && \
+        download_bashrc && \
+        install_programs_deb && \
+        download_nvim_conf_deb && \
+        install_nvim && \
+        install_go && \
+        setup_git && \
+}
+
+get_system_type() {
+        options=("debian/ubuntu" "termux" "exit") # Define options in an array
+        PS3="Which system are you in?: "
+        select opt in "${options[@]}"; do
+          case "$opt" in
+            "debian/ubuntu")
+                SYSTEM=deb
+              ;;
+            "termux")
+                SYSTEM=term
+              ;;
+            "exit")
+              echo "Exiting..."
+              break
+              ;;
+            "")  # If user just presses enter
+              echo "Invalid selection. Please choose a number from the menu."
+              ;;
+            *)
+              echo "Invalid selection. Please choose a number from the menu."
+              ;;
+          esac
+        done
 }
 
 is_debian_based=$([ -f /etc/debian_version ])
@@ -25,22 +44,10 @@ download_bashrc() {
                         "https://raw.githubusercontent.com/manasm11/manaslab/refs/heads/main/.bashrc"
 }
 
-download_spellcheck_dictionary() {
-        mkdir -p "$HOME/.config/nvim/spell/" && \
-        wget -O "$HOME/.config/nvim/spell/en.utf-8.add" \
-                        "https://raw.githubusercontent.com/manasm11/manaslab/refs/heads/main/en.utf-8.add"
-}
-
 download_nvim_conf_deb() {
         mkdir -p "$HOME/.config/nvim/" && \
         wget -O "$HOME/.config/nvim/init.vim" \
                         "https://raw.githubusercontent.com/manasm11/neovim-config/refs/heads/main/init.vim"
-}
-
-download_snippets() {
-        mkdir -p "$HOME/.config/nvim/snippets/" && \
-        wget -O "$HOME/.config/nvim/snippets/go.snippets" \
-                "https://raw.githubusercontent.com/manasm11/manaslab/refs/heads/main/go.snippets"
 }
 
 install_programs_deb() {

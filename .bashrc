@@ -52,7 +52,7 @@ alias myip='curl ifconfig.me'
 
 # Development aliases
 alias py='python3'
-alias pip='pip3'
+# alias pip='pip3'
 
 # Improved tab completion
 if ! shopt -oq posix; then
@@ -101,19 +101,9 @@ complete -cf sudo
 
 # Slate-themed bash prompt with system information
 
-# Color definitions (slate-inspired palette)
-SLATE_GRAY='\[\033[38;5;246m\]'
-SLATE_BLUE='\[\033[38;5;67m\]'
-SLATE_DARK='\[\033[38;5;240m\]'
-SLATE_LIGHT='\[\033[38;5;252m\]'
-BATTERY_GREEN='\[\033[38;5;40m\]'
-ATTERY_YELLOW='\[\033[38;5;220m\]'
-BATTERY_RED='\[\033[38;5;196m\]'
-RESET='\[\033[0m\]'
-
 # Function to get Git branch
-parse_git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+function git_branch {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
 }
 
 # Function to get battery percentage
@@ -142,15 +132,20 @@ get_battery_status() {
 }
 
 # Prompt construction
-PS1="${SLATE_DARK}[${SLATE_BLUE}\u${SLATE_DARK}@${SLATE_BLUE}\h${SLATE_DARK}]" # User and Host
-PS1+=" ${SLATE_GRAY}\D{%Y-%m-%d %H:%M}${RESET}" # Date and Time
-PS1+=" ${SLATE_LIGHT}\w${SLATE_BLUE}\$(parse_git_branch)${RESET}" # Current Directory and Git Branch
-PS1+=" \$(get_battery_status)" # Battery Status
-PS1+="\n$ " # New line with prompt symbol
-
+GREEN="\[\e[32m\]"
+YELLOW="\[\e[33m\]"
+BLUE="\[\e[34m\]"
+CYAN="\[\e[36m\]"
+RESET="\[\e[0m\]"
+PS1="${BLUE}\u@\h ${GREEN}\w${YELLOW} ($(git_branch)) ${RESET}$(get_battery_status)\n\$ "
 export PS1
-export PATH="/opt/nvim-linux-x86_64/bin:$PATH"
-export PATH="$HOME/.go/bin:$PATH"
+
+PATH="/opt/nvim-linux-x86_64/bin:$PATH"
+PATH="$HOME/.go/bin:$PATH"
+PATH="$HOME/.local/bin:$PATH"
+PATH="$HOME/.cargo/bin:$PATH"
+export PATH
+
 export GOPATH="$HOME/.go"
 
 function go() {
@@ -170,3 +165,4 @@ manaslab-update() {
     cp /home/manas/.config/nvim/snippets/go.snippets /home/manas/manaslab/go.snippets
     cd /home/manas/manaslab && git add . && git commit && git push && cd -
 }
+export PATH=~/.npm-global/bin:$PATH
